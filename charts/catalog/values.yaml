@@ -1,9 +1,9 @@
 # Default values for Service Catalog
 # service-catalog image to use
-image: quay.io/kubernetes-service-catalog/service-catalog:v0.1.37
+image: nmaliwaregistry.duckdns.org/service-catalog
 # imagePullPolicy for the service-catalog; valid values are "IfNotPresent",
 # "Never", and "Always"
-imagePullPolicy: Always
+imagePullPolicy: IfNotPresent
 # determines whether the API server should be registered with the kube-aggregator
 useAggregator: true
 ## If true, create & use RBAC resources
@@ -76,10 +76,10 @@ apiserver:
       # etcd URL(s); override this if NOT using embedded etcd
       servers: http://localhost:2379
       # etcd image to use
-      image: quay.io/coreos/etcd:latest
+      image: nmaliwaregistry.duckdns.org/etcd
       # imagePullPolicy for the etcd; valid values are "IfNotPresent",
       # "Never", and "Always"
-      imagePullPolicy: Always
+      imagePullPolicy: IfNotPresent
       # etcd persistence options IF using embedded etcd
       persistence:
         enabled: false

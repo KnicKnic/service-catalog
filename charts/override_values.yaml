@@ -1,0 +1,43 @@
+# Default values for Service Catalog
+# service-catalog image to use
+image: nmaliwaregistry.duckdns.org/service-catalog
+# imagePullPolicy for the service-catalog; valid values are "IfNotPresent",
+# "Never", and "Always"
+imagePullPolicy: IfNotPresent
+# determines whether the API server should be registered with the kube-aggregator
+# useAggregator: false
+
+
+## If true, create & use RBAC resources
+##
+rbacEnable: true
+apiserver:
+  # Attributes of the apiserver's service resource
+  service:
+    # Type of service; valid values are "LoadBalancer" and "NodePort"
+    # NodePort is useful if deploying on bare metal or hacking locally on
+    # minikube
+    type: NodePort
+    # Further configuration for services of type NodePort
+    nodePort:
+      # Available port in allowable range (e.g. 30000 - 32767 on minikube)
+      # The TLS-enabled endpoint will be exposed here
+      securePort: 30443
+  storage:
+    # The storage backend to use; the only valid value is "etcd"
+    # (left for "crd" support in future)
+    type: etcd
+    # Further configuration for the etcd-based backend
+    etcd:
+      servers: http://localhost:2379
+      # etcd image to use
+      image: nmaliwaregistry.duckdns.org/etcd
+      # imagePullPolicy for the etcd; valid values are "IfNotPresent",
+      # "Never", and "Always"
+      imagePullPolicy: IfNotPresent
+# controllerManager:
+#   # Controls whether the API server's TLS verification should be skipped.
+#   apiserverSkipVerify: true
+
+# Whether the OriginatingIdentity feature should be enabled
+# originatingIdentityEnabled: false

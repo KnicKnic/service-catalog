@@ -33,8 +33,6 @@ spec:
       - name: apiserver
         image: {{ .Values.image }}
         imagePullPolicy: {{ .Values.imagePullPolicy }}
-        resources:
-{{ toYaml .Values.apiserver.resources | indent 10 }}
         args:
         - apiserver
         {{ if .Values.apiserver.audit.activated -}}
@@ -108,17 +106,9 @@ spec:
       - name: etcd
         image: {{ .Values.apiserver.storage.etcd.image }}
         imagePullPolicy: {{ .Values.apiserver.storage.etcd.imagePullPolicy }}
-        resources:
-{{ toYaml .Values.apiserver.storage.etcd.resources | indent 10 }}
         env:
         - name: ETCD_DATA_DIR
           value: /etcd-data-dir
-        command:
-        - /usr/local/bin/etcd
-        - --listen-client-urls
-        - http://0.0.0.0:2379
-        - --advertise-client-urls
-        - http://localhost:2379
         ports:
         - containerPort: 2379
         volumeMounts:
